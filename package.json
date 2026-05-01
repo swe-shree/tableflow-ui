@@ -1,11 +1,12 @@
 {
   "name": "tableflow-ui",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && vite build"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0",
@@ -15,6 +16,8 @@
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.6.3"
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^4.5.14"
   }
 }
