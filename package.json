@@ -1,36 +1,23 @@
 {
   "name": "tableflow-ui",
   "version": "1.0.0",
-  "description": "A flexible and powerful data table UI component library",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "vitest"
+    "build": "tsc && vite build"
   },
   "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.3.1 || ^19.0.0",
+    "react-dom": "^18.3.1 || ^19.0.0",
+    "@tanstack/react-table": "^8.21.3"
   },
   "devDependencies": {
-    "@types/react": "^18.3.28",
-    "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.9.3",
-    "vit": "^0.4.3",
-    "vite": "^4.5.14",
-    "vitest": "^0.34.0"
-  },
-  "keywords": [
-    "react",
-    "table",
-    "datatable",
-    "ui",
-    "component"
-  ],
-  "license": "MIT"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^4.5.14"
+  }
 }
