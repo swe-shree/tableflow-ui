@@ -1,0 +1,86 @@
+/* Wrapper */
+.tableflow-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Table */
+.tableflow-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+/* Header */
+.tableflow-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f9fafb;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Body cells */
+.tableflow-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Hover row */
+.tableflow-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Sortable column */
+.tableflow-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.tableflow-sortable:hover {
+  color: #2563eb;
+}
+
+/* Clickable row */
+.tableflow-clickable-row {
+  cursor: pointer;
+}
+
+/* Empty state */
+.tableflow-empty {
+  text-align: center;
+  padding: 24px;
+  color: #6b7280;
+}
+
+/* Pagination */
+.tableflow-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* Buttons */
+.tableflow-pagination button {
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tableflow-pagination button:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.tableflow-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
