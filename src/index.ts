@@ -1,2 +1,6 @@
-export { default as DataTable } from "./components/DataTable";
-export type { Column, DataTableProps, SortDirection } from "./components/DataTable";
+export { default as TableContainer } from "./components/TableContainer";
+
+export type {
+  TableColumn,
+  TableContainerProps,
+} from "./types/table.types";
