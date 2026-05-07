@@ -75,7 +75,7 @@ export default function TableContainer<TData extends object>({
   }
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm">
+    <div className="w-full overflow-hidden  border border-[#E5E7EB] bg-white">
       {enableSearch && (
         <div className="border-b border-[#E5E7EB] p-4">
           <input
