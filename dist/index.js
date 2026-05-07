@@ -164,7 +164,7 @@ function re({
     let d = "asc";
     B === n && E === "asc" && (d = "desc"), j(n, d);
   }
-  return /* @__PURE__ */ o("div", { className: "w-full overflow-hidden  border border-[#E5E7EB] bg-white", children: [
+  return /* @__PURE__ */ o("div", { className: "w-full overflow-hidden border border-[#E5E7EB] bg-white", children: [
     T && /* @__PURE__ */ i("div", { className: "border-b border-[#E5E7EB] p-4", children: /* @__PURE__ */ i(
       "input",
       {
