@@ -1,299 +1,287 @@
-import { jsxs as d, jsx as i } from "react/jsx-runtime";
-import m, { useState as Z } from "react";
-function T(e) {
-  var t, r, n = "";
-  if (typeof e == "string" || typeof e == "number") n += e;
+import { jsxs as o, jsx as i } from "react/jsx-runtime";
+import b from "react";
+function D(e) {
+  var t, r, l = "";
+  if (typeof e == "string" || typeof e == "number") l += e;
   else if (typeof e == "object") if (Array.isArray(e)) {
-    var s = e.length;
-    for (t = 0; t < s; t++) e[t] && (r = T(e[t])) && (n && (n += " "), n += r);
-  } else for (r in e) e[r] && (n && (n += " "), n += r);
-  return n;
+    var c = e.length;
+    for (t = 0; t < c; t++) e[t] && (r = D(e[t])) && (l && (l += " "), l += r);
+  } else for (r in e) e[r] && (l && (l += " "), l += r);
+  return l;
 }
-function P() {
-  for (var e, t, r = 0, n = "", s = arguments.length; r < s; r++) (e = arguments[r]) && (t = T(e)) && (n && (n += " "), n += t);
-  return n;
+function _() {
+  for (var e, t, r = 0, l = "", c = arguments.length; r < c; r++) (e = arguments[r]) && (t = D(e)) && (l && (l += " "), l += t);
+  return l;
 }
-var A = {
+var I = {
   color: void 0,
   size: void 0,
   className: void 0,
   style: void 0,
   attr: void 0
-}, M = m.createContext && /* @__PURE__ */ m.createContext(A), C = ["attr", "size", "title"];
-function ee(e, t) {
+}, P = b.createContext && /* @__PURE__ */ b.createContext(I), q = ["attr", "size", "title"];
+function F(e, t) {
   if (e == null) return {};
-  var r, n, s = te(e, t);
+  var r, l, c = J(e, t);
   if (Object.getOwnPropertySymbols) {
-    var p = Object.getOwnPropertySymbols(e);
-    for (n = 0; n < p.length; n++) r = p[n], t.indexOf(r) === -1 && {}.propertyIsEnumerable.call(e, r) && (s[r] = e[r]);
+    var a = Object.getOwnPropertySymbols(e);
+    for (l = 0; l < a.length; l++) r = a[l], t.indexOf(r) === -1 && {}.propertyIsEnumerable.call(e, r) && (c[r] = e[r]);
   }
-  return s;
+  return c;
 }
-function te(e, t) {
+function J(e, t) {
   if (e == null) return {};
   var r = {};
-  for (var n in e) if ({}.hasOwnProperty.call(e, n)) {
-    if (t.indexOf(n) !== -1) continue;
-    r[n] = e[n];
+  for (var l in e) if ({}.hasOwnProperty.call(e, l)) {
+    if (t.indexOf(l) !== -1) continue;
+    r[l] = e[l];
   }
   return r;
 }
-function E() {
-  return E = Object.assign ? Object.assign.bind() : function(e) {
+function m() {
+  return m = Object.assign ? Object.assign.bind() : function(e) {
     for (var t = 1; t < arguments.length; t++) {
       var r = arguments[t];
-      for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
+      for (var l in r) ({}).hasOwnProperty.call(r, l) && (e[l] = r[l]);
     }
     return e;
-  }, E.apply(null, arguments);
+  }, m.apply(null, arguments);
 }
-function D(e, t) {
+function M(e, t) {
   var r = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var n = Object.getOwnPropertySymbols(e);
-    t && (n = n.filter(function(s) {
-      return Object.getOwnPropertyDescriptor(e, s).enumerable;
-    })), r.push.apply(r, n);
+    var l = Object.getOwnPropertySymbols(e);
+    t && (l = l.filter(function(c) {
+      return Object.getOwnPropertyDescriptor(e, c).enumerable;
+    })), r.push.apply(r, l);
   }
   return r;
 }
-function v(e) {
+function y(e) {
   for (var t = 1; t < arguments.length; t++) {
     var r = arguments[t] != null ? arguments[t] : {};
-    t % 2 ? D(Object(r), !0).forEach(function(n) {
-      re(e, n, r[n]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : D(Object(r)).forEach(function(n) {
-      Object.defineProperty(e, n, Object.getOwnPropertyDescriptor(r, n));
+    t % 2 ? M(Object(r), !0).forEach(function(l) {
+      Q(e, l, r[l]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : M(Object(r)).forEach(function(l) {
+      Object.defineProperty(e, l, Object.getOwnPropertyDescriptor(r, l));
     });
   }
   return e;
 }
-function re(e, t, r) {
-  return (t = ne(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
+function Q(e, t, r) {
+  return (t = R(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
 }
-function ne(e) {
-  var t = le(e, "string");
+function R(e) {
+  var t = V(e, "string");
   return typeof t == "symbol" ? t : t + "";
 }
-function le(e, t) {
+function V(e, t) {
   if (typeof e != "object" || !e) return e;
   var r = e[Symbol.toPrimitive];
   if (r !== void 0) {
-    var n = r.call(e, t);
-    if (typeof n != "object") return n;
+    var l = r.call(e, t);
+    if (typeof l != "object") return l;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (t === "string" ? String : Number)(e);
 }
-function K(e) {
-  return e && e.map((t, r) => /* @__PURE__ */ m.createElement(t.tag, v({
+function A(e) {
+  return e && e.map((t, r) => /* @__PURE__ */ b.createElement(t.tag, y({
     key: r
-  }, t.attr), K(t.child)));
+  }, t.attr), A(t.child)));
 }
-function j(e) {
-  return (t) => /* @__PURE__ */ m.createElement(ie, E({
-    attr: v({}, e.attr)
-  }, t), K(e.child));
+function w(e) {
+  return (t) => /* @__PURE__ */ b.createElement(X, m({
+    attr: y({}, e.attr)
+  }, t), A(e.child));
 }
-function ie(e) {
+function X(e) {
   var t = (r) => {
     var {
-      attr: n,
-      size: s,
-      title: p
-    } = e, f = ee(e, C), x = s || r.size || "1em", u;
-    return r.className && (u = r.className), e.className && (u = (u ? u + " " : "") + e.className), /* @__PURE__ */ m.createElement("svg", E({
+      attr: l,
+      size: c,
+      title: a
+    } = e, p = F(e, q), x = c || r.size || "1em", u;
+    return r.className && (u = r.className), e.className && (u = (u ? u + " " : "") + e.className), /* @__PURE__ */ b.createElement("svg", m({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
-    }, r.attr, n, f, {
+    }, r.attr, l, p, {
       className: u,
-      style: v(v({
+      style: y(y({
         color: e.color || r.color
       }, r.style), e.style),
       height: x,
       width: x,
       xmlns: "http://www.w3.org/2000/svg"
-    }), p && /* @__PURE__ */ m.createElement("title", null, p), e.children);
+    }), a && /* @__PURE__ */ b.createElement("title", null, a), e.children);
   };
-  return M !== void 0 ? /* @__PURE__ */ m.createElement(M.Consumer, null, (r) => t(r)) : t(A);
+  return P !== void 0 ? /* @__PURE__ */ b.createElement(P.Consumer, null, (r) => t(r)) : t(I);
 }
-function ce(e) {
-  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z" }, child: [] }] })(e);
+function Y(e) {
+  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z" }, child: [] }] })(e);
 }
-function se(e) {
-  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z" }, child: [] }] })(e);
+function Z(e) {
+  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z" }, child: [] }] })(e);
 }
-function oe(e) {
-  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z" }, child: [] }] })(e);
+function C(e) {
+  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z" }, child: [] }] })(e);
 }
-function ue({
+function re({
   columns: e,
   values: t,
   isLoading: r = !1,
-  emptyMessage: n = "No data found",
-  selectedRows: s = [],
-  onSelectionChange: p,
-  page: f = 1,
+  emptyMessage: l = "No data found",
+  selectedRows: c = [],
+  onSelectionChange: a,
+  page: p = 1,
   limit: x = 10,
   total: u = t.length,
-  onPageChange: o,
-  enableSearch: W = !1,
-  searchValue: F = "",
-  onSearchChange: w,
-  enableSorting: B = !1,
-  sortBy: S,
-  sortDirection: N,
-  onSortChange: k,
-  enableFiltering: G = !1,
-  filters: H = {},
-  onFilterChange: g
+  onPageChange: s,
+  enableSearch: T = !1,
+  searchValue: W = "",
+  onSearchChange: h,
+  enableSorting: O = !1,
+  sortBy: B,
+  sortDirection: E,
+  onSortChange: j,
+  enableFiltering: K = !1,
+  filters: G = {},
+  onFilterChange: v
 }) {
-  const [U, $] = Z([]), b = p ? s : U, y = p || $, O = Math.max(1, Math.ceil(u / x)), L = f > 1, z = f < O, I = e.length + 1;
-  function R(l) {
-    const c = l.id;
-    return c !== void 0 ? b.some(
-      (a) => a.id === c
-    ) : b.includes(l);
+  const N = Math.max(1, Math.ceil(u / x)), g = p > 1, k = p < N, S = e.length + 1;
+  function L(n) {
+    return c.includes(n);
   }
-  function q(l) {
-    if (R(l)) {
-      const c = l.id;
-      y(
-        c !== void 0 ? b.filter(
-          (a) => a.id !== c
-        ) : b.filter((a) => a !== l)
-      );
-    } else
-      y([...b, l]);
+  function H(n) {
+    a && (L(n) ? a(c.filter((d) => d !== n)) : a([...c, n]));
   }
-  function J() {
-    b.length === t.length ? y([]) : y(t);
+  function U() {
+    a && (c.length === t.length ? a([]) : a(t));
   }
-  function Q(l) {
-    if (!B || !k) return;
-    let c;
-    S !== l ? c = "asc" : N === "asc" ? c = "desc" : c = void 0, k(l, c);
+  function $(n) {
+    if (!O || !j) return;
+    let d = "asc";
+    B === n && E === "asc" && (d = "desc"), j(n, d);
   }
-  const V = u === 0 ? 0 : (f - 1) * x + 1, X = Math.min(f * x, u);
-  return /* @__PURE__ */ d("div", { className: "w-full overflow-hidden rounded-2xl  border border-[#E5E7EB] bg-white", children: [
-    W && /* @__PURE__ */ i("div", { className: "border-b border-[#E5E7EB] p-4", children: /* @__PURE__ */ i(
+  return /* @__PURE__ */ o("div", { className: "w-full overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm", children: [
+    T && /* @__PURE__ */ i("div", { className: "border-b border-[#E5E7EB] p-4", children: /* @__PURE__ */ i(
       "input",
       {
-        value: F,
-        onChange: (l) => w == null ? void 0 : w(l.target.value),
+        value: W,
+        onChange: (n) => h == null ? void 0 : h(n.target.value),
         placeholder: "Search...",
         className: "w-full rounded-xl border border-[#E5E7EB] px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-300"
       }
     ) }),
-    /* @__PURE__ */ i("div", { className: "overflow-x-auto", children: /* @__PURE__ */ d("table", { className: "w-full border-collapse text-sm", children: [
-      /* @__PURE__ */ d("thead", { children: [
-        /* @__PURE__ */ d("tr", { className: "bg-white", children: [
+    /* @__PURE__ */ i("div", { className: "overflow-x-auto", children: /* @__PURE__ */ o("table", { className: "w-full border-collapse text-sm", children: [
+      /* @__PURE__ */ o("thead", { children: [
+        /* @__PURE__ */ o("tr", { className: "bg-white", children: [
           /* @__PURE__ */ i("th", { className: "w-12 border-t border-[#E5E7EB] px-[10px] py-[10px] text-center", children: /* @__PURE__ */ i(
             "input",
             {
               type: "checkbox",
-              checked: t.length > 0 && b.length === t.length,
-              onChange: J
+              checked: t.length > 0 && c.length === t.length,
+              onChange: U
             }
           ) }),
-          e.map((l) => {
-            const c = S === l.key, a = B && l.sortable !== !1;
+          e.map((n) => {
+            const d = B === n.key, f = O && n.sortable !== !1;
             return /* @__PURE__ */ i(
               "th",
               {
-                onClick: () => a && Q(l.key),
-                className: P(
+                onClick: () => f && $(n.key),
+                className: _(
                   "border-t border-[#E5E7EB] px-[10px] py-[10px] align-middle text-center font-medium text-[12px] leading-[13.48px] tracking-[0.51px] uppercase text-[#6B7280]",
-                  a && "cursor-pointer select-none hover:bg-slate-800",
-                  l.headerClassName
+                  f && "cursor-pointer select-none hover:bg-slate-50",
+                  n.headerClassName
                 ),
-                children: /* @__PURE__ */ d("div", { className: "flex items-center justify-center gap-2 whitespace-nowrap", children: [
-                  l.label,
-                  a && (c && N === "asc" ? /* @__PURE__ */ i(se, {}) : c && N === "desc" ? /* @__PURE__ */ i(oe, {}) : /* @__PURE__ */ i(ce, {}))
+                children: /* @__PURE__ */ o("div", { className: "flex items-center justify-center gap-2 whitespace-nowrap", children: [
+                  n.label,
+                  f && (d && E === "asc" ? /* @__PURE__ */ i(Z, {}) : d && E === "desc" ? /* @__PURE__ */ i(C, {}) : /* @__PURE__ */ i(Y, {}))
                 ] })
               },
-              String(l.key)
+              String(n.key)
             );
           })
         ] }),
-        G && /* @__PURE__ */ d("tr", { className: "bg-slate-50", children: [
+        K && /* @__PURE__ */ o("tr", { className: "bg-slate-50", children: [
           /* @__PURE__ */ i("th", { className: "border-[#E5E7EB]" }),
-          e.map((l) => /* @__PURE__ */ i(
+          e.map((n) => /* @__PURE__ */ i(
             "th",
             {
               className: "border-[#E5E7EB] px-[10px] py-[10px]",
-              children: l.filterable !== !1 ? /* @__PURE__ */ i(
+              children: n.filterable !== !1 ? /* @__PURE__ */ i(
                 "input",
                 {
-                  value: String(H[l.key] ?? ""),
-                  onChange: (c) => g == null ? void 0 : g(l.key, c.target.value),
-                  placeholder: `Filter ${l.label}`,
+                  value: String(G[n.key] ?? ""),
+                  onChange: (d) => v == null ? void 0 : v(
+                    n.key,
+                    d.target.value
+                  ),
+                  placeholder: `Filter ${n.label}`,
                   className: "w-full rounded-lg border border-[#E5E7EB] px-3 py-1.5 text-sm font-normal outline-none"
                 }
               ) : null
             },
-            String(l.key)
+            String(n.key)
           ))
         ] })
       ] }),
       /* @__PURE__ */ i("tbody", { children: r ? /* @__PURE__ */ i("tr", { children: /* @__PURE__ */ i(
         "td",
         {
-          colSpan: I,
+          colSpan: S,
           className: "px-[10px] py-6 text-center text-slate-800",
           children: "Loading..."
         }
       ) }) : t.length === 0 ? /* @__PURE__ */ i("tr", { children: /* @__PURE__ */ i(
         "td",
         {
-          colSpan: I,
+          colSpan: S,
           className: "px-[10px] py-6 text-center text-slate-800",
-          children: n
+          children: l
         }
-      ) }) : t.map((l, c) => {
-        const a = l.id, Y = a !== void 0 ? String(a) : c;
-        return /* @__PURE__ */ d(
-          "tr",
-          {
-            className: "bg-white transition-colors hover:bg-slate-50",
-            children: [
-              /* @__PURE__ */ i("td", { className: "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center", children: /* @__PURE__ */ i(
-                "input",
+      ) }) : t.map((n, d) => /* @__PURE__ */ o(
+        "tr",
+        {
+          className: "bg-white transition-colors hover:bg-slate-50",
+          children: [
+            /* @__PURE__ */ i("td", { className: "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center", children: /* @__PURE__ */ i(
+              "input",
+              {
+                type: "checkbox",
+                checked: L(n),
+                onChange: () => H(n)
+              }
+            ) }),
+            e.map((f) => {
+              const z = n[f.key];
+              return /* @__PURE__ */ i(
+                "td",
                 {
-                  type: "checkbox",
-                  checked: R(l),
-                  onChange: () => q(l)
-                }
-              ) }),
-              e.map((h) => {
-                const _ = l[h.key];
-                return /* @__PURE__ */ i(
-                  "td",
-                  {
-                    className: P(
-                      "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center text-[12px] text-[#1E293B]",
-                      h.className
-                    ),
-                    children: h.render ? h.render(_, l) : String(_ ?? "")
-                  },
-                  String(h.key)
-                );
-              })
-            ]
-          },
-          Y
-        );
-      }) })
+                  className: _(
+                    "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center text-[12px] text-[#1E293B]",
+                    f.className
+                  ),
+                  children: f.render ? f.render(z, n) : String(z ?? "")
+                },
+                String(f.key)
+              );
+            })
+          ]
+        },
+        d
+      )) })
     ] }) }),
-    u > 0 && /* @__PURE__ */ d("div", { className: "relative flex items-center justify-between border-t border-[#E5E7EB] px-4 py-3", children: [
-      /* @__PURE__ */ d("p", { className: "text-sm ", children: [
+    u > 0 && /* @__PURE__ */ o("div", { className: "relative flex items-center border-t border-[#E5E7EB] px-4 py-3", children: [
+      /* @__PURE__ */ o("p", { className: "text-sm text-[#6B7280]", children: [
         "Showing",
         " ",
-        /* @__PURE__ */ d("span", { className: "font-bold text-[#111827]", children: [
-          V,
+        /* @__PURE__ */ o("span", { className: "font-bold text-[#111827]", children: [
+          (p - 1) * x + 1,
           "–",
-          X
+          Math.min(p * x, u)
         ] }),
         " ",
         "of",
@@ -302,13 +290,13 @@ function ue({
         " ",
         "documents"
       ] }),
-      /* @__PURE__ */ d("div", { className: "absolute left-1/2 flex -translate-x-1/2 items-center gap-2", children: [
+      /* @__PURE__ */ o("div", { className: "absolute left-1/2 flex -translate-x-1/2 items-center gap-2", children: [
         /* @__PURE__ */ i(
           "button",
           {
             type: "button",
-            disabled: !L,
-            onClick: () => o == null ? void 0 : o(1),
+            disabled: !g,
+            onClick: () => s == null ? void 0 : s(1),
             className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
             children: "<<"
           }
@@ -317,26 +305,27 @@ function ue({
           "button",
           {
             type: "button",
-            disabled: !L,
-            onClick: () => o == null ? void 0 : o(f - 1),
+            disabled: !g,
+            onClick: () => s == null ? void 0 : s(p - 1),
             className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
             children: "<"
           }
         ),
-        /* @__PURE__ */ d("p", { className: "text-sm text-[#6B7280]", children: [
+        /* @__PURE__ */ o("p", { className: "text-sm text-[#6B7280]", children: [
           "Page",
           " ",
-          /* @__PURE__ */ i("span", { className: "font-semibold text-[#111827]", children: f }),
+          /* @__PURE__ */ i("span", { className: "font-bold text-[#111827]", children: p }),
           " ",
-          "of ",
-          O
+          "of",
+          " ",
+          /* @__PURE__ */ i("span", { className: "font-bold text-[#111827]", children: N })
         ] }),
         /* @__PURE__ */ i(
           "button",
           {
             type: "button",
-            disabled: !z,
-            onClick: () => o == null ? void 0 : o(f + 1),
+            disabled: !k,
+            onClick: () => s == null ? void 0 : s(p + 1),
             className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
             children: ">"
           }
@@ -345,8 +334,8 @@ function ue({
           "button",
           {
             type: "button",
-            disabled: !z,
-            onClick: () => o == null ? void 0 : o(O),
+            disabled: !k,
+            onClick: () => s == null ? void 0 : s(N),
             className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
             children: ">>"
           }
@@ -356,5 +345,5 @@ function ue({
   ] });
 }
 export {
-  ue as TableContainer
+  re as TableContainer
 };

@@ -1,8 +1,5 @@
-import { useState } from "react";
 import clsx from "clsx";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
-import { IoIosArrowBack } from "react-icons/io";
-
 import type {
   SortDirection,
   TableContainerProps,
@@ -35,16 +32,6 @@ export default function TableContainer<TData extends object>({
   filters = {},
   onFilterChange,
 }: TableContainerProps<TData>) {
-  const [internalSelectedRows, setInternalSelectedRows] = useState<TData[]>([]);
-
-  const currentSelectedRows = onSelectionChange
-    ? selectedRows
-    : internalSelectedRows;
-
-  const updateSelectedRows = onSelectionChange
-    ? onSelectionChange
-    : setInternalSelectedRows;
-
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const canPreviousPage = page > 1;
   const canNextPage = page < totalPages;
@@ -52,64 +39,43 @@ export default function TableContainer<TData extends object>({
   const colSpan = columns.length + 1;
 
   function isRowSelected(row: TData) {
-    const rowId = (row as Record<string, unknown>)["id"];
-
-    if (rowId !== undefined) {
-      return currentSelectedRows.some(
-        (item) => (item as Record<string, unknown>)["id"] === rowId
-      );
-    }
-
-    return currentSelectedRows.includes(row);
+    return selectedRows.includes(row);
   }
 
   function toggleRow(row: TData) {
-    if (isRowSelected(row)) {
-      const rowId = (row as Record<string, unknown>)["id"];
+    if (!onSelectionChange) return;
 
-      if (rowId !== undefined) {
-        updateSelectedRows(
-          currentSelectedRows.filter(
-            (item) => (item as Record<string, unknown>)["id"] !== rowId
-          )
-        );
-      } else {
-        updateSelectedRows(currentSelectedRows.filter((item) => item !== row));
-      }
+    if (isRowSelected(row)) {
+      onSelectionChange(selectedRows.filter((item) => item !== row));
     } else {
-      updateSelectedRows([...currentSelectedRows, row]);
+      onSelectionChange([...selectedRows, row]);
     }
   }
 
   function toggleAllRows() {
-    if (currentSelectedRows.length === values.length) {
-      updateSelectedRows([]);
+    if (!onSelectionChange) return;
+
+    if (selectedRows.length === values.length) {
+      onSelectionChange([]);
     } else {
-      updateSelectedRows(values);
+      onSelectionChange(values);
     }
   }
 
   function handleSort(key: keyof TData) {
     if (!enableSorting || !onSortChange) return;
 
-    let nextDirection: SortDirection | undefined;
+    let nextDirection: SortDirection = "asc";
 
-    if (sortBy !== key) {
-      nextDirection = "asc";
-    } else if (sortDirection === "asc") {
+    if (sortBy === key && sortDirection === "asc") {
       nextDirection = "desc";
-    } else {
-      nextDirection = undefined;
     }
 
     onSortChange(key, nextDirection);
   }
 
-  const showingFrom = total === 0 ? 0 : (page - 1) * limit + 1;
-  const showingTo = Math.min(page * limit, total);
-
   return (
-    <div className="w-full overflow-hidden rounded-2xl  border border-[#E5E7EB] bg-white">
+    <div className="w-full overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm">
       {enableSearch && (
         <div className="border-b border-[#E5E7EB] p-4">
           <input
@@ -130,7 +96,7 @@ export default function TableContainer<TData extends object>({
                   type="checkbox"
                   checked={
                     values.length > 0 &&
-                    currentSelectedRows.length === values.length
+                    selectedRows.length === values.length
                   }
                   onChange={toggleAllRows}
                 />
@@ -138,7 +104,9 @@ export default function TableContainer<TData extends object>({
 
               {columns.map((column) => {
                 const isSorted = sortBy === column.key;
-                const canSort = enableSorting && column.sortable !== false;
+
+                const canSort =
+                  enableSorting && column.sortable !== false;
 
                 return (
                   <th
@@ -147,7 +115,7 @@ export default function TableContainer<TData extends object>({
                     className={clsx(
                       "border-t border-[#E5E7EB] px-[10px] py-[10px] align-middle text-center font-medium text-[12px] leading-[13.48px] tracking-[0.51px] uppercase text-[#6B7280]",
                       canSort &&
-                      "cursor-pointer select-none hover:bg-slate-800",
+                        "cursor-pointer select-none hover:bg-slate-50",
                       column.headerClassName
                     )}
                   >
@@ -157,7 +125,8 @@ export default function TableContainer<TData extends object>({
                       {canSort &&
                         (isSorted && sortDirection === "asc" ? (
                           <FaSortUp />
-                        ) : isSorted && sortDirection === "desc" ? (
+                        ) : isSorted &&
+                          sortDirection === "desc" ? (
                           <FaSortDown />
                         ) : (
                           <FaSort />
@@ -181,7 +150,10 @@ export default function TableContainer<TData extends object>({
                       <input
                         value={String(filters[column.key] ?? "")}
                         onChange={(e) =>
-                          onFilterChange?.(column.key, e.target.value)
+                          onFilterChange?.(
+                            column.key,
+                            e.target.value
+                          )
                         }
                         placeholder={`Filter ${column.label}`}
                         className="w-full rounded-lg border border-[#E5E7EB] px-3 py-1.5 text-sm font-normal outline-none"
@@ -213,115 +185,113 @@ export default function TableContainer<TData extends object>({
                 </td>
               </tr>
             ) : (
-              values.map((row, rowIndex) => {
-                const rowId = (row as Record<string, unknown>)["id"];
-                const rowKey = rowId !== undefined ? String(rowId) : rowIndex;
+              values.map((row, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  className="bg-white transition-colors hover:bg-slate-50"
+                >
+                  <td className="border-t border-[#E5E7EB] px-[10px] py-[8px] text-center">
+                    <input
+                      type="checkbox"
+                      checked={isRowSelected(row)}
+                      onChange={() => toggleRow(row)}
+                    />
+                  </td>
 
-                return (
-                  <tr
-                    key={rowKey}
-                    className="bg-white transition-colors hover:bg-slate-50"
-                  >
-                    <td className="border-t border-[#E5E7EB] px-[10px] py-[8px] text-center">
-                      <input
-                        type="checkbox"
-                        checked={isRowSelected(row)}
-                        onChange={() => toggleRow(row)}
-                      />
-                    </td>
+                  {columns.map((column) => {
+                    const value = row[column.key];
 
-                    {columns.map((column) => {
-                      const value = row[column.key];
-
-                      return (
-                        <td
-                          key={String(column.key)}
-                          className={clsx(
-                            "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center text-[12px] text-[#1E293B]",
-                            column.className
-                          )}
-                        >
-                          {column.render
-                            ? column.render(value, row)
-                            : String(value ?? "")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })
+                    return (
+                      <td
+                        key={String(column.key)}
+                        className={clsx(
+                          "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center text-[12px] text-[#1E293B]",
+                          column.className
+                        )}
+                      >
+                        {column.render
+                          ? column.render(value, row)
+                          : String(value ?? "")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))
             )}
           </tbody>
         </table>
       </div>
 
       {total > 0 && (
-        <div className="relative flex items-center justify-between border-t border-[#E5E7EB] px-4 py-3">
+  <div className="relative flex items-center border-t border-[#E5E7EB] px-4 py-3">
 
-          {/* LEFT SIDE */}
-          <p className="text-sm ">
-            Showing{" "}
-            <span className="font-bold text-[#111827]">
-              {showingFrom}–{showingTo}
-            </span>{" "}
-            of{" "}
-            <span className="font-bold text-[#111827]">
-              {total.toLocaleString()}
-            </span>{" "}
-            documents
-          </p>
+    {/* LEFT SIDE */}
+    <p className="text-sm text-[#6B7280]">
+      Showing{" "}
+      <span className="font-bold text-[#111827]">
+        {(page - 1) * limit + 1}–
+        {Math.min(page * limit, total)}
+      </span>{" "}
+      of{" "}
+      <span className="font-bold text-[#111827]">
+        {total.toLocaleString()}
+      </span>{" "}
+      documents
+    </p>
 
-          {/* CENTER PAGINATION */}
-          <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
+    {/* CENTER PAGINATION */}
+    <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
 
-            <button
-              type="button"
-              disabled={!canPreviousPage}
-              onClick={() => onPageChange?.(1)}
-              className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
-            >
-              {"<<"}
-            </button>
+      <button
+        type="button"
+        disabled={!canPreviousPage}
+        onClick={() => onPageChange?.(1)}
+        className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
+      >
+        {"<<"}
+      </button>
 
-            <button
-              type="button"
-              disabled={!canPreviousPage}
-              onClick={() => onPageChange?.(page - 1)}
-              className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
-            >
-              {"<"}
-            </button>
+      <button
+        type="button"
+        disabled={!canPreviousPage}
+        onClick={() => onPageChange?.(page - 1)}
+        className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
+      >
+        {"<"}
+      </button>
 
-            <p className="text-sm text-[#6B7280]">
-              Page{" "}
-              <span className="font-semibold text-[#111827]">
-                {page}
-              </span>{" "}
-              of {totalPages}
-            </p>
+      <p className="text-sm text-[#6B7280]">
+        Page{" "}
+        <span className="font-bold text-[#111827]">
+          {page}
+        </span>{" "}
+        of{" "}
+        <span className="font-bold text-[#111827]">
+          {totalPages}
+        </span>
+      </p>
 
-            <button
-              type="button"
-              disabled={!canNextPage}
-              onClick={() => onPageChange?.(page + 1)}
-              className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
-            >
-              {">"}
-            </button>
+      <button
+        type="button"
+        disabled={!canNextPage}
+        onClick={() => onPageChange?.(page + 1)}
+        className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
+      >
+        {">"}
+      </button>
 
-            <button
-              type="button"
-              disabled={!canNextPage}
-              onClick={() => onPageChange?.(totalPages)}
-              className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
-            >
-              {">>"}
-            </button>
-
-          </div>
-        </div>
-      )}
+      <button
+        type="button"
+        disabled={!canNextPage}
+        onClick={() => onPageChange?.(totalPages)}
+        className="rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40"
+      >
+        {">>"}
+      </button>
 
     </div>
+  </div>
+)}
+    </div>
   );
-}
+} 
