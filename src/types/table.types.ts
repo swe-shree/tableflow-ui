@@ -34,7 +34,7 @@ export type TableContainerProps<TData extends object> = {
   enableSorting?: boolean;
   sortBy?: keyof TData | string;
   sortDirection?: SortDirection;
-  onSortChange?: (key: keyof TData | string, direction: SortDirection) => void;
+  onSortChange?: (key: keyof TData, direction: SortDirection | undefined) => void;
 
   enableFiltering?: boolean;
   filters?: Partial<Record<keyof TData, string>>;

@@ -1,281 +1,354 @@
-import { jsxs as o, jsx as a } from "react/jsx-runtime";
-import m from "react";
-function D(e) {
-  var t, r, l = "";
-  if (typeof e == "string" || typeof e == "number") l += e;
+import { jsxs as d, jsx as i } from "react/jsx-runtime";
+import m, { useState as Z } from "react";
+function T(e) {
+  var t, r, n = "";
+  if (typeof e == "string" || typeof e == "number") n += e;
   else if (typeof e == "object") if (Array.isArray(e)) {
-    var i = e.length;
-    for (t = 0; t < i; t++) e[t] && (r = D(e[t])) && (l && (l += " "), l += r);
-  } else for (r in e) e[r] && (l && (l += " "), l += r);
-  return l;
+    var s = e.length;
+    for (t = 0; t < s; t++) e[t] && (r = T(e[t])) && (n && (n += " "), n += r);
+  } else for (r in e) e[r] && (n && (n += " "), n += r);
+  return n;
 }
-function z() {
-  for (var e, t, r = 0, l = "", i = arguments.length; r < i; r++) (e = arguments[r]) && (t = D(e)) && (l && (l += " "), l += t);
-  return l;
+function P() {
+  for (var e, t, r = 0, n = "", s = arguments.length; r < s; r++) (e = arguments[r]) && (t = T(e)) && (n && (n += " "), n += t);
+  return n;
 }
-var M = {
+var A = {
   color: void 0,
   size: void 0,
   className: void 0,
   style: void 0,
   attr: void 0
-}, L = m.createContext && /* @__PURE__ */ m.createContext(M), q = ["attr", "size", "title"];
-function F(e, t) {
+}, M = m.createContext && /* @__PURE__ */ m.createContext(A), C = ["attr", "size", "title"];
+function ee(e, t) {
   if (e == null) return {};
-  var r, l, i = J(e, t);
+  var r, n, s = te(e, t);
   if (Object.getOwnPropertySymbols) {
-    var s = Object.getOwnPropertySymbols(e);
-    for (l = 0; l < s.length; l++) r = s[l], t.indexOf(r) === -1 && {}.propertyIsEnumerable.call(e, r) && (i[r] = e[r]);
+    var p = Object.getOwnPropertySymbols(e);
+    for (n = 0; n < p.length; n++) r = p[n], t.indexOf(r) === -1 && {}.propertyIsEnumerable.call(e, r) && (s[r] = e[r]);
   }
-  return i;
+  return s;
 }
-function J(e, t) {
+function te(e, t) {
   if (e == null) return {};
   var r = {};
-  for (var l in e) if ({}.hasOwnProperty.call(e, l)) {
-    if (t.indexOf(l) !== -1) continue;
-    r[l] = e[l];
+  for (var n in e) if ({}.hasOwnProperty.call(e, n)) {
+    if (t.indexOf(n) !== -1) continue;
+    r[n] = e[n];
   }
   return r;
 }
-function h() {
-  return h = Object.assign ? Object.assign.bind() : function(e) {
+function E() {
+  return E = Object.assign ? Object.assign.bind() : function(e) {
     for (var t = 1; t < arguments.length; t++) {
       var r = arguments[t];
-      for (var l in r) ({}).hasOwnProperty.call(r, l) && (e[l] = r[l]);
+      for (var n in r) ({}).hasOwnProperty.call(r, n) && (e[n] = r[n]);
     }
     return e;
-  }, h.apply(null, arguments);
+  }, E.apply(null, arguments);
 }
-function _(e, t) {
+function D(e, t) {
   var r = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var l = Object.getOwnPropertySymbols(e);
-    t && (l = l.filter(function(i) {
-      return Object.getOwnPropertyDescriptor(e, i).enumerable;
-    })), r.push.apply(r, l);
+    var n = Object.getOwnPropertySymbols(e);
+    t && (n = n.filter(function(s) {
+      return Object.getOwnPropertyDescriptor(e, s).enumerable;
+    })), r.push.apply(r, n);
   }
   return r;
 }
-function y(e) {
+function v(e) {
   for (var t = 1; t < arguments.length; t++) {
     var r = arguments[t] != null ? arguments[t] : {};
-    t % 2 ? _(Object(r), !0).forEach(function(l) {
-      Q(e, l, r[l]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : _(Object(r)).forEach(function(l) {
-      Object.defineProperty(e, l, Object.getOwnPropertyDescriptor(r, l));
+    t % 2 ? D(Object(r), !0).forEach(function(n) {
+      re(e, n, r[n]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : D(Object(r)).forEach(function(n) {
+      Object.defineProperty(e, n, Object.getOwnPropertyDescriptor(r, n));
     });
   }
   return e;
 }
-function Q(e, t, r) {
-  return (t = R(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
+function re(e, t, r) {
+  return (t = ne(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
 }
-function R(e) {
-  var t = V(e, "string");
+function ne(e) {
+  var t = le(e, "string");
   return typeof t == "symbol" ? t : t + "";
 }
-function V(e, t) {
+function le(e, t) {
   if (typeof e != "object" || !e) return e;
   var r = e[Symbol.toPrimitive];
   if (r !== void 0) {
-    var l = r.call(e, t);
-    if (typeof l != "object") return l;
+    var n = r.call(e, t);
+    if (typeof n != "object") return n;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (t === "string" ? String : Number)(e);
 }
-function I(e) {
-  return e && e.map((t, r) => /* @__PURE__ */ m.createElement(t.tag, y({
+function K(e) {
+  return e && e.map((t, r) => /* @__PURE__ */ m.createElement(t.tag, v({
     key: r
-  }, t.attr), I(t.child)));
+  }, t.attr), K(t.child)));
 }
-function w(e) {
-  return (t) => /* @__PURE__ */ m.createElement(X, h({
-    attr: y({}, e.attr)
-  }, t), I(e.child));
+function j(e) {
+  return (t) => /* @__PURE__ */ m.createElement(ie, E({
+    attr: v({}, e.attr)
+  }, t), K(e.child));
 }
-function X(e) {
+function ie(e) {
   var t = (r) => {
     var {
-      attr: l,
-      size: i,
-      title: s
-    } = e, u = F(e, q), b = i || r.size || "1em", f;
-    return r.className && (f = r.className), e.className && (f = (f ? f + " " : "") + e.className), /* @__PURE__ */ m.createElement("svg", h({
+      attr: n,
+      size: s,
+      title: p
+    } = e, f = ee(e, C), x = s || r.size || "1em", u;
+    return r.className && (u = r.className), e.className && (u = (u ? u + " " : "") + e.className), /* @__PURE__ */ m.createElement("svg", E({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
-    }, r.attr, l, u, {
-      className: f,
-      style: y(y({
+    }, r.attr, n, f, {
+      className: u,
+      style: v(v({
         color: e.color || r.color
       }, r.style), e.style),
-      height: b,
-      width: b,
+      height: x,
+      width: x,
       xmlns: "http://www.w3.org/2000/svg"
-    }), s && /* @__PURE__ */ m.createElement("title", null, s), e.children);
+    }), p && /* @__PURE__ */ m.createElement("title", null, p), e.children);
   };
-  return L !== void 0 ? /* @__PURE__ */ m.createElement(L.Consumer, null, (r) => t(r)) : t(M);
+  return M !== void 0 ? /* @__PURE__ */ m.createElement(M.Consumer, null, (r) => t(r)) : t(A);
 }
-function Y(e) {
-  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z" }, child: [] }] })(e);
+function ce(e) {
+  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z" }, child: [] }] })(e);
 }
-function Z(e) {
-  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z" }, child: [] }] })(e);
+function se(e) {
+  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z" }, child: [] }] })(e);
 }
-function C(e) {
-  return w({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z" }, child: [] }] })(e);
+function oe(e) {
+  return j({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z" }, child: [] }] })(e);
 }
-function re({
+function ue({
   columns: e,
   values: t,
   isLoading: r = !1,
-  emptyMessage: l = "No data found",
-  selectedRows: i = [],
-  onSelectionChange: s,
-  page: u = 1,
-  limit: b = 10,
-  total: f = t.length,
-  onPageChange: p,
-  enableSearch: A = !1,
-  searchValue: B = "",
-  onSearchChange: x,
-  enableSorting: N = !1,
-  sortBy: O,
-  sortDirection: v,
-  onSortChange: j,
-  enableFiltering: T = !1,
-  filters: W = {},
+  emptyMessage: n = "No data found",
+  selectedRows: s = [],
+  onSelectionChange: p,
+  page: f = 1,
+  limit: x = 10,
+  total: u = t.length,
+  onPageChange: o,
+  enableSearch: W = !1,
+  searchValue: F = "",
+  onSearchChange: w,
+  enableSorting: B = !1,
+  sortBy: S,
+  sortDirection: N,
+  onSortChange: k,
+  enableFiltering: G = !1,
+  filters: H = {},
   onFilterChange: g
 }) {
-  const k = Math.max(1, Math.ceil(f / b)), K = u > 1, G = u < k, P = e.length + 1;
-  function S(n) {
-    return i.includes(n);
+  const [U, $] = Z([]), b = p ? s : U, y = p || $, O = Math.max(1, Math.ceil(u / x)), L = f > 1, z = f < O, I = e.length + 1;
+  function R(l) {
+    const c = l.id;
+    return c !== void 0 ? b.some(
+      (a) => a.id === c
+    ) : b.includes(l);
   }
-  function H(n) {
-    s && (S(n) ? s(i.filter((c) => c !== n)) : s([...i, n]));
+  function q(l) {
+    if (R(l)) {
+      const c = l.id;
+      y(
+        c !== void 0 ? b.filter(
+          (a) => a.id !== c
+        ) : b.filter((a) => a !== l)
+      );
+    } else
+      y([...b, l]);
   }
-  function U() {
-    s && (i.length === t.length ? s([]) : s(t));
+  function J() {
+    b.length === t.length ? y([]) : y(t);
   }
-  function $(n) {
-    if (!N || !j) return;
-    let c = "asc";
-    O === n && v === "asc" && (c = "desc"), j(n, c);
+  function Q(l) {
+    if (!B || !k) return;
+    let c;
+    S !== l ? c = "asc" : N === "asc" ? c = "desc" : c = void 0, k(l, c);
   }
-  return /* @__PURE__ */ o("div", { className: "w-full overflow-hidden rounded-2xl border bg-white shadow-sm", children: [
-    A && /* @__PURE__ */ a("div", { className: "border-b p-4", children: /* @__PURE__ */ a(
+  const V = u === 0 ? 0 : (f - 1) * x + 1, X = Math.min(f * x, u);
+  return /* @__PURE__ */ d("div", { className: "w-full overflow-hidden rounded-2xl  border border-[#E5E7EB] bg-white", children: [
+    W && /* @__PURE__ */ i("div", { className: "border-b border-[#E5E7EB] p-4", children: /* @__PURE__ */ i(
       "input",
       {
-        value: B,
-        onChange: (n) => x == null ? void 0 : x(n.target.value),
+        value: F,
+        onChange: (l) => w == null ? void 0 : w(l.target.value),
         placeholder: "Search...",
-        className: "w-full rounded-xl border px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-300"
+        className: "w-full rounded-xl border border-[#E5E7EB] px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-300"
       }
     ) }),
-    /* @__PURE__ */ a("div", { className: "overflow-x-auto", children: /* @__PURE__ */ o("table", { className: "w-full text-sm", children: [
-      /* @__PURE__ */ o("thead", { className: "border-b", children: [
-        /* @__PURE__ */ o("tr", { className: "bg-white", children: [
-          /* @__PURE__ */ a("th", { className: "w-12 px-4 py-3.5 text-left", children: /* @__PURE__ */ a(
+    /* @__PURE__ */ i("div", { className: "overflow-x-auto", children: /* @__PURE__ */ d("table", { className: "w-full border-collapse text-sm", children: [
+      /* @__PURE__ */ d("thead", { children: [
+        /* @__PURE__ */ d("tr", { className: "bg-white", children: [
+          /* @__PURE__ */ i("th", { className: "w-12 border-t border-[#E5E7EB] px-[10px] py-[10px] text-center", children: /* @__PURE__ */ i(
             "input",
             {
               type: "checkbox",
-              checked: t.length > 0 && i.length === t.length,
-              onChange: U
+              checked: t.length > 0 && b.length === t.length,
+              onChange: J
             }
           ) }),
-          e.map((n) => {
-            const c = O === n.key, d = N && n.sortable !== !1;
-            return /* @__PURE__ */ a(
+          e.map((l) => {
+            const c = S === l.key, a = B && l.sortable !== !1;
+            return /* @__PURE__ */ i(
               "th",
               {
-                onClick: () => d && $(n.key),
-                className: z(
-                  "px-4 py-3.5 text-left font-semibold text-slate-700",
-                  d && "cursor-pointer select-none hover:bg-slate-100",
-                  n.headerClassName
+                onClick: () => a && Q(l.key),
+                className: P(
+                  "border-t border-[#E5E7EB] px-[10px] py-[10px] align-middle text-center font-medium text-[12px] leading-[13.48px] tracking-[0.51px] uppercase text-[#6B7280]",
+                  a && "cursor-pointer select-none hover:bg-slate-800",
+                  l.headerClassName
                 ),
-                children: /* @__PURE__ */ o("div", { className: "flex items-center gap-2 whitespace-nowrap", children: [
-                  n.label,
-                  d && (c && v === "asc" ? /* @__PURE__ */ a(Z, {}) : c && v === "desc" ? /* @__PURE__ */ a(C, {}) : /* @__PURE__ */ a(Y, {}))
+                children: /* @__PURE__ */ d("div", { className: "flex items-center justify-center gap-2 whitespace-nowrap", children: [
+                  l.label,
+                  a && (c && N === "asc" ? /* @__PURE__ */ i(se, {}) : c && N === "desc" ? /* @__PURE__ */ i(oe, {}) : /* @__PURE__ */ i(ce, {}))
                 ] })
               },
-              String(n.key)
+              String(l.key)
             );
           })
         ] }),
-        T && /* @__PURE__ */ o("tr", { className: "bg-slate-50", children: [
-          /* @__PURE__ */ a("th", {}),
-          e.map((n) => /* @__PURE__ */ a("th", { className: "px-4 py-2", children: n.filterable !== !1 ? /* @__PURE__ */ a(
-            "input",
+        G && /* @__PURE__ */ d("tr", { className: "bg-slate-50", children: [
+          /* @__PURE__ */ i("th", { className: "border-[#E5E7EB]" }),
+          e.map((l) => /* @__PURE__ */ i(
+            "th",
             {
-              value: String(W[n.key] ?? ""),
-              onChange: (c) => g == null ? void 0 : g(n.key, c.target.value),
-              placeholder: `Filter ${n.label}`,
-              className: "w-full rounded-lg border px-3 py-1.5 text-sm font-normal outline-none"
-            }
-          ) : null }, String(n.key)))
+              className: "border-[#E5E7EB] px-[10px] py-[10px]",
+              children: l.filterable !== !1 ? /* @__PURE__ */ i(
+                "input",
+                {
+                  value: String(H[l.key] ?? ""),
+                  onChange: (c) => g == null ? void 0 : g(l.key, c.target.value),
+                  placeholder: `Filter ${l.label}`,
+                  className: "w-full rounded-lg border border-[#E5E7EB] px-3 py-1.5 text-sm font-normal outline-none"
+                }
+              ) : null
+            },
+            String(l.key)
+          ))
         ] })
       ] }),
-      /* @__PURE__ */ a("tbody", { className: "divide-y", children: r ? /* @__PURE__ */ a("tr", { children: /* @__PURE__ */ a("td", { colSpan: P, className: "px-4 py-6 text-center text-slate-500", children: "Loading..." }) }) : t.length === 0 ? /* @__PURE__ */ a("tr", { children: /* @__PURE__ */ a("td", { colSpan: P, className: "px-4 py-6 text-center text-slate-500", children: l }) }) : t.map((n, c) => /* @__PURE__ */ o(
-        "tr",
+      /* @__PURE__ */ i("tbody", { children: r ? /* @__PURE__ */ i("tr", { children: /* @__PURE__ */ i(
+        "td",
         {
-          className: "transition-colors odd:bg-slate-50 even:bg-white hover:bg-slate-100",
-          children: [
-            /* @__PURE__ */ a("td", { className: "px-4 py-3", children: /* @__PURE__ */ a(
-              "input",
-              {
-                type: "checkbox",
-                checked: S(n),
-                onChange: () => H(n)
-              }
-            ) }),
-            e.map((d) => {
-              const E = n[d.key];
-              return /* @__PURE__ */ a(
-                "td",
+          colSpan: I,
+          className: "px-[10px] py-6 text-center text-slate-800",
+          children: "Loading..."
+        }
+      ) }) : t.length === 0 ? /* @__PURE__ */ i("tr", { children: /* @__PURE__ */ i(
+        "td",
+        {
+          colSpan: I,
+          className: "px-[10px] py-6 text-center text-slate-800",
+          children: n
+        }
+      ) }) : t.map((l, c) => {
+        const a = l.id, Y = a !== void 0 ? String(a) : c;
+        return /* @__PURE__ */ d(
+          "tr",
+          {
+            className: "bg-white transition-colors hover:bg-slate-50",
+            children: [
+              /* @__PURE__ */ i("td", { className: "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center", children: /* @__PURE__ */ i(
+                "input",
                 {
-                  className: z(
-                    "px-4 py-3 text-left text-slate-600",
-                    d.className
-                  ),
-                  children: d.render ? d.render(E, n) : String(E ?? "")
-                },
-                String(d.key)
-              );
-            })
-          ]
-        },
-        c
-      )) })
+                  type: "checkbox",
+                  checked: R(l),
+                  onChange: () => q(l)
+                }
+              ) }),
+              e.map((h) => {
+                const _ = l[h.key];
+                return /* @__PURE__ */ i(
+                  "td",
+                  {
+                    className: P(
+                      "border-t border-[#E5E7EB] px-[10px] py-[8px] text-center text-[12px] text-[#1E293B]",
+                      h.className
+                    ),
+                    children: h.render ? h.render(_, l) : String(_ ?? "")
+                  },
+                  String(h.key)
+                );
+              })
+            ]
+          },
+          Y
+        );
+      }) })
     ] }) }),
-    /* @__PURE__ */ o("div", { className: "flex flex-col gap-3 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between", children: [
-      /* @__PURE__ */ o("p", { className: "text-center text-sm text-slate-600 sm:text-left", children: [
-        "Page ",
-        u,
-        " of ",
-        k
+    u > 0 && /* @__PURE__ */ d("div", { className: "relative flex items-center justify-between border-t border-[#E5E7EB] px-4 py-3", children: [
+      /* @__PURE__ */ d("p", { className: "text-sm ", children: [
+        "Showing",
+        " ",
+        /* @__PURE__ */ d("span", { className: "font-bold text-[#111827]", children: [
+          V,
+          "–",
+          X
+        ] }),
+        " ",
+        "of",
+        " ",
+        /* @__PURE__ */ i("span", { className: "font-bold text-[#111827]", children: u.toLocaleString() }),
+        " ",
+        "documents"
       ] }),
-      /* @__PURE__ */ o("div", { className: "flex w-full flex-col gap-2 sm:w-auto sm:flex-row", children: [
-        /* @__PURE__ */ a(
+      /* @__PURE__ */ d("div", { className: "absolute left-1/2 flex -translate-x-1/2 items-center gap-2", children: [
+        /* @__PURE__ */ i(
           "button",
           {
             type: "button",
-            disabled: !K,
-            onClick: () => p == null ? void 0 : p(u - 1),
-            className: "w-full rounded-lg border px-3 py-2 text-sm hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto",
-            children: "Previous"
+            disabled: !L,
+            onClick: () => o == null ? void 0 : o(1),
+            className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
+            children: "<<"
           }
         ),
-        /* @__PURE__ */ a(
+        /* @__PURE__ */ i(
           "button",
           {
             type: "button",
-            disabled: !G,
-            onClick: () => p == null ? void 0 : p(u + 1),
-            className: "w-full rounded-lg border px-3 py-2 text-sm hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto",
-            children: "Next"
+            disabled: !L,
+            onClick: () => o == null ? void 0 : o(f - 1),
+            className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
+            children: "<"
+          }
+        ),
+        /* @__PURE__ */ d("p", { className: "text-sm text-[#6B7280]", children: [
+          "Page",
+          " ",
+          /* @__PURE__ */ i("span", { className: "font-semibold text-[#111827]", children: f }),
+          " ",
+          "of ",
+          O
+        ] }),
+        /* @__PURE__ */ i(
+          "button",
+          {
+            type: "button",
+            disabled: !z,
+            onClick: () => o == null ? void 0 : o(f + 1),
+            className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
+            children: ">"
+          }
+        ),
+        /* @__PURE__ */ i(
+          "button",
+          {
+            type: "button",
+            disabled: !z,
+            onClick: () => o == null ? void 0 : o(O),
+            className: "rounded border border-[#E5E7EB] px-2 py-1 text-sm text-[#6B7280] disabled:opacity-40",
+            children: ">>"
           }
         )
       ] })
@@ -283,5 +356,5 @@ function re({
   ] });
 }
 export {
-  re as TableContainer
+  ue as TableContainer
 };
