@@ -108,7 +108,7 @@ export default function TableContainer<TData extends object>({
                     key={String(column.key)}
                     onClick={() => canSort && handleSort(column.key)}
                     className={clsx(
-                      "px-4 py-3.5 text-left font-semibold text-slate-700",
+                      "px-[10px] py-[10px]align-middle text-left font-Inter text-[12px] leading-[16px] text-slate-500-[13.48px] tracking-[0.51px] uppercase text-[6B7280]",
                       canSort && "cursor-pointer select-none hover:bg-slate-100",
                       column.headerClassName
                     )}
@@ -135,7 +135,7 @@ export default function TableContainer<TData extends object>({
                 <th />
 
                 {columns.map((column) => (
-                  <th key={String(column.key)} className="px-4 py-2">
+                  <th key={String(column.key)} className="px-[10px] py-[10px]">
                     {column.filterable !== false ? (
                       <input
                         value={String(filters[column.key] ?? "")}
@@ -155,13 +155,13 @@ export default function TableContainer<TData extends object>({
           <tbody className="divide-y">
             {isLoading ? (
               <tr>
-                <td colSpan={colSpan} className="px-4 py-6 text-center text-slate-500">
+                <td colSpan={colSpan} className="px-[10px] py-6 text-center text-slate-500">
                   Loading...
                 </td>
               </tr>
             ) : values.length === 0 ? (
               <tr>
-                <td colSpan={colSpan} className="px-4 py-6 text-center text-slate-500">
+                <td colSpan={colSpan} className="px-[10px] py-6 text-center text-slate-500">
                   {emptyMessage}
                 </td>
               </tr>
@@ -171,7 +171,7 @@ export default function TableContainer<TData extends object>({
                   key={rowIndex}
                   className="transition-colors odd:bg-slate-50 even:bg-white hover:bg-slate-100"
                 >
-                  <td className="px-4 py-3">
+                  <td className="px-[10px] py-[8px]">
                     <input
                       type="checkbox"
                       checked={isRowSelected(row)}
@@ -186,7 +186,7 @@ export default function TableContainer<TData extends object>({
                       <td
                         key={String(column.key)}
                         className={clsx(
-                          "px-4 py-3 text-left text-slate-600",
+                          "px-[10px] py-[8px] text-left text-[12px] text-[1e293b] ",
                           column.className
                         )}
                       >
